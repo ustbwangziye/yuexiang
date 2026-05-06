@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>月相日历</title>
+    <meta name="theme-color" content="#0b0d12" />
+    <meta
+      name="description"
+      content="可安装、可离线使用的月相日历应用，支持每日月相、月龄和照明比例查询。"
+    />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icons/icon-192.png" />
+    <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero-panel" aria-label="月相概览">
+        <div class="hero-copy">
+          <p class="eyebrow">Lunar Phase Calendar</p>
+          <h1>月相日历</h1>
+          <p class="subtitle">查看每日月相、月龄、照明比例和本月关键月相节点。</p>
+        </div>
+        <div class="moon-stage" aria-hidden="true">
+          <div class="moon-orbit">
+            <div class="feature-moon" id="featureMoon"></div>
+          </div>
+          <div class="stage-info">
+            <span id="featurePhase">今日月相</span>
+            <strong id="featureDate">--</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="toolbar" aria-label="月份控制">
+        <div class="month-controls">
+          <button class="icon-button" id="prevMonth" aria-label="上个月" title="上个月">
+            <span aria-hidden="true">‹</span>
+          </button>
+          <button class="today-button" id="todayButton">今天</button>
+          <button class="icon-button" id="nextMonth" aria-label="下个月" title="下个月">
+            <span aria-hidden="true">›</span>
+          </button>
+        </div>
+        <h2 id="monthTitle">--</h2>
+        <div class="jump-controls">
+          <select id="monthPicker" aria-label="选择月份"></select>
+          <input id="yearPicker" type="number" min="1900" max="2100" aria-label="选择年份" />
+        </div>
+      </section>
+
+      <section class="content-grid">
+        <section class="calendar-panel" aria-label="月相日历表">
+          <div class="weekday-row" aria-hidden="true">
+            <span>一</span>
+            <span>二</span>
+            <span>三</span>
+            <span>四</span>
+            <span>五</span>
+            <span>六</span>
+            <span>日</span>
+          </div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </section>
+
+        <aside class="detail-panel" aria-label="日期详情">
+          <div class="detail-moon-wrap">
+            <div class="detail-moon" id="detailMoon"></div>
+          </div>
+          <div class="detail-copy">
+            <p class="eyebrow" id="selectedDate">--</p>
+            <h3 id="selectedPhase">--</h3>
+            <p id="selectedDescription">--</p>
+          </div>
+          <div class="metrics">
+            <div>
+              <span>月龄</span>
+              <strong id="moonAge">--</strong>
+            </div>
+            <div>
+              <span>照明</span>
+              <strong id="illumination">--</strong>
+            </div>
+            <div>
+              <span>距新月</span>
+              <strong id="daysToNewMoon">--</strong>
+            </div>
+          </div>
+          <div class="events">
+            <div class="panel-heading">
+              <h4>本月重点</h4>
+              <span id="eventCount">--</span>
+            </div>
+            <ul id="eventList"></ul>
+          </div>
+        </aside>
+      </section>
+    </main>
+    <script src="./app.js"></script>
+    <script>
+      if ("serviceWorker" in navigator && location.protocol !== "file:") {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("./service-worker.js");
+        });
+      }
+    </script>
+  </body>
+</html>
